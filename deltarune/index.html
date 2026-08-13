@@ -97,35 +97,8 @@
     function updateButton() { }
 
     function loadChapter(chapter) {
-      const chapterPath = `chapter${chapter}/`;
-      fetch(`${chapterPath}index.html`).then(res => {
-        if (!res.ok) {
-          throw new Error(`Failed to load ${chapterPath}index.html`);
-        }
-        return res.text();
-      }).then(html => {
-        gamestarted = true;
-        const chapterDocument = new DOMParser().parseFromString(html, 'text/html');
-        let base = chapterDocument.querySelector('base');
-        if (!base) {
-          base = chapterDocument.createElement('base');
-          chapterDocument.head.prepend(base);
-        }
-        base.href = new URL(chapterPath, window.location.href).href;
-        document.documentElement.innerHTML = chapterDocument.documentElement.innerHTML;
-        document.documentElement.querySelectorAll('script').forEach(oldScript => {
-          const newScript = document.createElement('script');
-          if (oldScript.src) {
-            newScript.src = oldScript.src;
-          } else {
-            newScript.textContent = oldScript.textContent;
-          }
-          document.body.appendChild(newScript);
-        });
-      }).catch(error => {
-        console.error(error);
-        window.location.href = `${chapterPath}index.html`;
-      });
+      gamestarted = true;
+      window.location.href = `chapter${chapter}/index.html`;
     }
 
     const menumoveaudio = new Audio('audios/snd_menumove.mp3');
