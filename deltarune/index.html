@@ -137,6 +137,14 @@
 
     backBtn.addEventListener('click', goBack);
 
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        audio.pause();
+      } else if (!gamestarted && audio.paused) {
+        startDrone();
+      }
+    });
+
     const menumoveaudio = new Audio('audios/snd_menumove.mp3');
     const menuselectaudio = new Audio('audios/snd_select.mp3');
 
