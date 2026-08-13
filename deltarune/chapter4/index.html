@@ -1,7 +1,15 @@
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
-    <base href="./">
+    <base id="__base" href="./">
+    <script>
+      try {
+        var __p = location.pathname.replace(/\/index\.html?$/, '/');
+        if (__p.charAt(__p.length - 1) !== '/') __p += '/';
+        document.getElementById('__base').href = __p;
+      } catch (e) { }
+    </script>
+
     <script>
       // better debugging for me
       const ogalert = window.alert;

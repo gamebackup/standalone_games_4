@@ -1,29 +1,222 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deltarune</title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden; 
-        }
+  <meta charset="UTF-8">
+  <title>DELTARUNE</title>
+  <link rel="stylesheet" href="style.css">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PXHK7Q7G3Z"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-PXHK7Q7G3Z');
+  </script>
+  <style>
+    * {
+      -webkit-appearance: none;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-text-size-adjust: 100%;
+      -webkit-font-smoothing: antialiased;
+    }
 
-        #fullscreen-iframe {
-            display: block;
-            width: 100%;
-            height: 100%;
-            border: none; 
-        }
-    </style>
+    *:focus {
+      outline: none;
+      -webkit-focus-ring-color: transparent;
+    }
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
 </head>
+
 <body>
+  <div class="logo-container">
+    <img src="logo.png" alt="Logo" class="logo">
+  </div>
 
-    <iframe id="fullscreen-iframe" src="https://katsugachi.github.io/deltarune/" allowfullscreen></iframe>
+  <div class="menu">
+    <a href="javascript:loadChapter(1)" class="row">
+      <span class="chapter">Chapter 1</span>
+      <span class="title">The Beginning</span>
+      <img src="icons/1.png">
+    </a>
+    <a href="javascript:loadChapter(2)" class="row">
+      <span class="chapter">Chapter 2</span>
+      <span class="title">A Cyber's World</span>
+      <img src="icons/2.png">
+    </a>
+    <a href="javascript:loadChapter(3)" class="row">
+      <span class="chapter">Chapter 3</span>
+      <span class="title">Late Night</span>
+      <img src="icons/3.png">
+    </a>
+    <a href="javascript:loadChapter(4)" class="row">
+      <span class="chapter">Chapter 4</span>
+      <span class="title">Prophecy</span>
+      <img src="icons/4.png">
+    </a>
+    <a href="javascript:loadChapter(5)" class="row">
+      <span class="chapter">Chapter 5</span>
+      <span class="title">Festival Day</span>
+      <img src="icons/5.png">
+    </a>
+    <a href="javascript:alert('Chapter 6 coming soon!')" class="disabled-row">
+      <span class="chapter">Chapter 6</span>
+      <span class="disabled-title">--</span>
+      <img src="icons/0.png">
+    </a>
+    <a href="javascript:alert('Chapter 7 coming soon!')" class="disabled-row">
+      <span class="chapter">Chapter 7</span>
+      <span class="disabled-title">--</span>
+      <img src="icons/0.png">
+    </a>
+    <a href="javascript:loadPage('saves.html')" class="row" style="margin-top: 24px;">
+      <span class="chapter">Saves</span>
+      <span class="title">Import / Export</span>
+      <img src="icons/saves.png">
+    </a>
+  </div>
+  <div id="game-container" style="display:none; position:fixed; inset:0; z-index:10; background:#000;">
+    <iframe id="game-frame" style="width:100%; height:100%; border:0; display:block;" allowfullscreen allow="fullscreen; autoplay; gamepad"></iframe>
+    <button id="back-btn" title="Back to menu" style="position:fixed; top:10px; left:10px; z-index:11; cursor:pointer; font-size:20px; line-height:1; padding:6px 10px; border-radius:6px;">&#8962;</button>
+  </div>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-WLTG1S4STB');
+  </script>
+  <audio id="drone" controls="" loop="" autoplay="" hidden="">
+    <source src="chapter5/mus/AUDIO_DRONE.ogg" type="audio/ogg">
+    Your browser does not support the audio element.
+  </audio>
+  <button id="mute" hidden>??</button>
+  <script>
+    const audio = document.getElementById('drone');
+    audio.muted = false;
+    audio.volume = 1;
+    const mute = document.getElementById('mute');
+    let gamestarted = false;
 
+    function updateButton() { }
+
+    const gameContainer = document.getElementById('game-container');
+    const gameFrame = document.getElementById('game-frame');
+    const backBtn = document.getElementById('back-btn');
+
+    function stopDrone() {
+      audio.pause();
+      audio.muted = true;
+    }
+
+    function startDrone() {
+      audio.muted = false;
+      audio.play().catch(() => { });
+    }
+
+    function loadPage(url) {
+      gamestarted = true;
+      stopDrone();
+      gameFrame.src = url;
+      gameContainer.style.display = 'block';
+      gameFrame.onload = () => { try { gameFrame.contentWindow.focus(); } catch (e) { } };
+    }
+
+    function loadChapter(chapter) {
+      loadPage(`chapter${chapter}/`);
+    }
+
+    function goBack() {
+      gamestarted = false;
+      gameFrame.onload = null;
+      gameFrame.src = 'about:blank';
+      gameContainer.style.display = 'none';
+      startDrone();
+    }
+
+    backBtn.addEventListener('click', goBack);
+
+    const menumoveaudio = new Audio('audios/snd_menumove.mp3');
+    const menuselectaudio = new Audio('audios/snd_select.mp3');
+
+    function playSound(sound) {
+      sound.currentTime = 0;
+      const playPromise = sound.play();
+      if (playPromise) {
+        playPromise.catch(() => { });
+      }
+    }
+
+    document.querySelectorAll('.row').forEach(row => {
+      row.addEventListener('mouseenter', () => {
+        if (!gamestarted) {
+          playSound(menumoveaudio);
+          if (selectedChapter) {
+            document.querySelectorAll('.row')[selectedChapter].classList.remove("selected");
+          }
+        }
+      });
+      row.addEventListener('click', () => {
+        if (!gamestarted) {
+          playSound(menuselectaudio);
+        }
+      });
+    });
+
+    let selectedChapter = null;
+    document.addEventListener('keydown', function (event) {
+      if (!gamestarted) {
+        if (event.key === 'ArrowUp') {
+          if (selectedChapter === null) {
+            selectedChapter = 0;
+            document.querySelectorAll('.row')[0].classList.add("selected");
+            playSound(menumoveaudio);
+          } else {
+            document.querySelectorAll('.row')[selectedChapter].classList.remove("selected");
+            selectedChapter--;
+            if (selectedChapter < 0) {
+              selectedChapter = document.querySelectorAll('.row').length - 1;
+            }
+            document.querySelectorAll('.row')[selectedChapter].classList.add("selected");
+            playSound(menumoveaudio);
+          }
+        } else if (event.key === 'ArrowDown') {
+          if (selectedChapter === null) {
+            selectedChapter = 0;
+            document.querySelectorAll('.row')[0].classList.add("selected");
+            playSound(menumoveaudio);
+          } else {
+            if (selectedChapter + 1 >= document.querySelectorAll('.row').length) {
+              document.querySelectorAll('.row')[selectedChapter].classList.remove("selected");
+              selectedChapter = 0;
+              document.querySelectorAll('.row')[0].classList.add("selected");
+              playSound(menumoveaudio);
+            } else {
+              document.querySelectorAll('.row')[selectedChapter].classList.remove("selected");
+              selectedChapter++;
+              document.querySelectorAll('.row')[selectedChapter].classList.add("selected");
+              playSound(menumoveaudio);
+            }
+          }
+        } else if (event.key === 'Enter') {
+          if (selectedChapter !== null) {
+            playSound(menuselectaudio);
+            const row = document.querySelectorAll('.row')[selectedChapter];
+            if (row.classList.contains('disabled-row')) {
+              alert('Chapter ' + (selectedChapter + 1) + ' coming soon!');
+            } else if (selectedChapter < 5) {
+              loadChapter(selectedChapter + 1);
+            } else {
+              loadPage('saves.html');
+            }
+          }
+        }
+      } else if (event.key === 'Escape') {
+        goBack();
+      }
+    });
+  </script>
 </body>
+
 </html>

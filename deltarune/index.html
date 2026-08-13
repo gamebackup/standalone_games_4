@@ -2,6 +2,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <title>DELTARUNE</title>
   <link rel="stylesheet" href="style.css">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PXHK7Q7G3Z"></script>
   <script>
@@ -70,11 +71,15 @@
       <span class="disabled-title">--</span>
       <img src="icons/0.png">
     </a>
-    <a href="saves.html" class="row" style="margin-top: 24px;">
+    <a href="javascript:loadPage('saves.html')" class="row" style="margin-top: 24px;">
       <span class="chapter">Saves</span>
       <span class="title">Import / Export</span>
       <img src="icons/saves.png">
     </a>
+  </div>
+  <div id="game-container" style="display:none; position:fixed; inset:0; z-index:10; background:#000;">
+    <iframe id="game-frame" style="width:100%; height:100%; border:0; display:block;" allowfullscreen allow="fullscreen; autoplay; gamepad"></iframe>
+    <button id="back-btn" title="Back to menu" style="position:fixed; top:10px; left:10px; z-index:11; cursor:pointer; font-size:20px; line-height:1; padding:6px 10px; border-radius:6px;">&#8962;</button>
   </div>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -96,10 +101,41 @@
 
     function updateButton() { }
 
-    function loadChapter(chapter) {
-      gamestarted = true;
-      window.location.href = `chapter${chapter}/index.html`;
+    const gameContainer = document.getElementById('game-container');
+    const gameFrame = document.getElementById('game-frame');
+    const backBtn = document.getElementById('back-btn');
+
+    function stopDrone() {
+      audio.pause();
+      audio.muted = true;
     }
+
+    function startDrone() {
+      audio.muted = false;
+      audio.play().catch(() => { });
+    }
+
+    function loadPage(url) {
+      gamestarted = true;
+      stopDrone();
+      gameFrame.src = url;
+      gameContainer.style.display = 'block';
+      gameFrame.onload = () => { try { gameFrame.contentWindow.focus(); } catch (e) { } };
+    }
+
+    function loadChapter(chapter) {
+      loadPage(`chapter${chapter}/`);
+    }
+
+    function goBack() {
+      gamestarted = false;
+      gameFrame.onload = null;
+      gameFrame.src = 'about:blank';
+      gameContainer.style.display = 'none';
+      startDrone();
+    }
+
+    backBtn.addEventListener('click', goBack);
 
     const menumoveaudio = new Audio('audios/snd_menumove.mp3');
     const menuselectaudio = new Audio('audios/snd_select.mp3');
@@ -165,10 +201,19 @@
           }
         } else if (event.key === 'Enter') {
           if (selectedChapter !== null) {
-            window.location.href = document.querySelectorAll('.row')[selectedChapter].href;
             playSound(menuselectaudio);
+            const row = document.querySelectorAll('.row')[selectedChapter];
+            if (row.classList.contains('disabled-row')) {
+              alert('Chapter ' + (selectedChapter + 1) + ' coming soon!');
+            } else if (selectedChapter < 5) {
+              loadChapter(selectedChapter + 1);
+            } else {
+              loadPage('saves.html');
+            }
           }
         }
+      } else if (event.key === 'Escape') {
+        goBack();
       }
     });
   </script>
