@@ -1,0 +1,288 @@
+
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="cache-control" content="max-age=0" />
+	<meta http-equiv="cache-control" content="no-cache" />
+	<meta http-equiv="expires" content="0" />
+	<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+	<meta http-equiv="pragma" content="no-cache" />	
+	
+	<!-- AD STUFF HERE-->
+	
+    <title>SK</title>
+    <style>
+      body {
+        font-family: arial;
+        margin: 0;
+        background-color: #0A0A0A;
+        color: grey;
+        padding: none;
+      }
+
+      .emscripten { padding-right: 0; margin-left: auto; margin-right: auto; display: block; }
+
+      div.emscripten { text-align: center; }      
+      div.emscripten2 { 
+		text-align: center;   position: absolute;
+		left: 50%;
+		top: 45%;
+		transform: translate(-50%, -50%); 
+		}      
+		
+      div.emscripten_border { border: 20px solid #0A0A0A; }
+	  
+      /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
+      old.canvas.emscripten.old
+	  { 
+		border: 0px none; background-color: #0A0A0A;
+        /*width: 95vw;*/
+		width: calc(100vw - 40px);
+        height: 75.00vw; /* height:width ratio = 768/1024 = .75  */
+        /*max-height: 95vh;*/
+		max-height: calc(100vh - 40px);
+        max-width: 133.33vh; /* 1024/768 = 1.33 */
+        margin: auto;
+        top:0;bottom:0; /* vertical center */
+        left:0;right:0; /* horizontal center */   
+       }
+	   
+      canvas.emscripten
+	  { 
+		border: 0px none; background-color: #0A0A0A;
+      }
+	   
+
+      #emscripten_logo {
+        display: inline-block;
+        margin: 0;
+      }
+
+
+      @-webkit-keyframes rotation {
+        from {-webkit-transform: rotate(0deg);}
+        to {-webkit-transform: rotate(360deg);}
+      }
+      @-moz-keyframes rotation {
+        from {-moz-transform: rotate(0deg);}
+        to {-moz-transform: rotate(360deg);}
+      }
+      @-o-keyframes rotation {
+        from {-o-transform: rotate(0deg);}
+        to {-o-transform: rotate(360deg);}
+      }
+      @keyframes rotation {
+        from {transform: rotate(0deg);}
+        to {transform: rotate(360deg);}
+      }
+
+      #status {
+        display: inline-block;
+        vertical-align: top;
+        margin-top: 30px;
+        margin-left: 20px;
+        font-weight: bold;
+        color: rgb(120, 120, 120);
+      }
+
+      #progress {
+        height: 20px;
+        width: 300px;
+      }
+
+      #controls {
+        display: inline-block;
+        float: right;
+        vertical-align: top;
+        margin-top: 30px;
+        margin-right: 20px;
+      }
+
+    </style>
+  </head>
+  <body onload="ResizeCanvas()">
+  
+    <div id="loading" class="emscripten2">
+      <img src="logopic.gif"><br/>
+      <progress value="0" max="100" id="progress" hidden=1></progress><br/>
+      <img src="logotitle.jpg"><br/>
+    </div>
+	
+	<center><div style="height: 0px" id="topscreen_spacer">&nbsp;</div>
+	<!-- BANNER DIV CODE HERE
+	<div id='hoggy-com_728x90' style="height:90px">
+		<script type='text/javascript'>
+			aiptag.cmd.display.push(function() { aipDisplayTag.display('hoggy-com_728x90'); });
+		</script>
+	</div>
+	-->
+	<center><div style="height: 0px" id="topgame_spacer">&nbsp;</div>
+    
+    <div class="emscripten_border" id="playarea">
+      <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
+    </div>
+	
+	<div id="core"></div>
+
+    <script type='text/javascript'>
+		<!-- HANDLE MOBILE REDIRECTS -->
+		//if (navigator.appVersion.indexOf("Android")!=-1) window.location.href="https://play.google.com/store/apps/details?id=com.raptisoft.RWK";
+		//if (navigator.appVersion.indexOf("iPhone")!=-1 || navigator.appVersion.indexOf("iPad")!=-1 || navigator.appVersion.indexOf("iPod")!=-1) window.location.href="https://apps.apple.com/us/app/robot-wants-kitty/id423108053";
+
+	
+		var gBannerSpace=0;
+
+		function IsInIFrame() {try {return window.self !== window.top;} catch (e) {return true;}}
+		function FrameWidth() 
+		{
+			if (typeof(window.innerWidth)=='number') return window.innerWidth;
+			if (document.documentElement && document.documentElement.clientWidth) return document.documentElement.clientWidth;
+			if (document.body && document.body.clientWidth) return document.body.clientWidth;
+			return BrowserWidth();
+		}		
+		function FrameHeight() 
+		{
+			if (typeof(window.innerHeight)=='number') return window.innerHeight;
+			if (document.documentElement && document.documentElement.clientHeight) return document.documentElement.clientHeight;
+			if (document.body && document.body.clientHeight) return document.body.clientHeight;
+			return BrowserHeight();
+		}		
+		function BrowserWidth()
+		{
+			if(typeof(window.innerWidth)=='number') return window.innerWidth;
+			if (document.documentElement && document.documentElement.clientWidth) return document.documentElement.clientWidth;
+			if (document.body && document.body.clientWidth) return document.body.clientWidth;
+			return 1024;
+		}		
+		function BrowserHeight()
+		{
+			if(typeof(window.innerHeight)=='number') return window.innerHeight;
+			if (document.documentElement && document.documentElement.clientHeight) return document.documentElement.clientHeight;
+			if (document.body && document.body.clientHeight) return document.body.clientHeight;
+			return 1024;
+		}		
+		function ResizeCanvas()
+		{
+			var aArea = document.getElementById('canvas');
+			if (IsInIFrame())
+			{
+				gBannerSpace=90;
+				document.getElementById("playarea").style.border='0px';
+				document.getElementById("topscreen_spacer").style.height='0px';
+				document.getElementById("topgame_spacer").style.height='2px';
+				var aNewWidth=FrameWidth();
+				var aNewHeight=FrameHeight()-(gBannerSpace+2);
+				aArea.style.width=aNewWidth+'px';
+				aArea.style.height=aNewHeight+'px';
+			}
+			else 
+			{
+				//_ShowBanner();
+				var aEdging=40;
+				if (gBannerSpace>0) document.getElementById("topscreen_spacer").style.height='5px';
+				var aNewWidth=(BrowserHeight()-(gBannerSpace+aEdging))*1.33;
+				if (aNewWidth>BrowserWidth()-aEdging) aNewWidth=BrowserWidth()-aEdging;
+				aArea.style.width=aNewWidth+'px';
+			}
+		}
+		
+		var gBannerName='???????'; // Same as the banner div
+		//function _IsAdBlock() {return false;} // Uncomment and fill this out if you want to use custom ad blocking
+		function _WebNotify() {} // Process any kind of notifications you need to send here (for CrazyGames)
+		function _WebQuery(theQuery) // Various queries we can make that return an int...
+		{
+			//if (theQuery=="FORCESMALLSCREEN") return 1; // For Graphics_Core to allow to force into "phone" size mode...
+			return 0;
+		}
+		
+		function _ShowBanner() {if (document.getElementById(gBannerName)) document.getElementById(gBannerName).style.visibility="visible";}
+		function _RefreshBanner() {} // Do whatever is necessary to refresh the banner
+		function _ShowInterstitial() {} // Do whatever is necessary to refresh the interstitial
+		
+		function OnStartup()
+		{
+			//
+			// Put anything here you want to run when the app starts (example, unhide the banner)
+			//
+			ResizeCanvas();
+			_ShowBanner();
+			if (IsInIFrame()) document.getElementById("canvas").focus();
+		}
+
+		window.addEventListener('resize', ResizeCanvas, true);
+	
+	
+      var progressElement = document.getElementById('progress');
+      var progressDiv = document.getElementById('loading');
+      var Module = {
+        preRun: [],
+        postRun: [],
+        print: (function() {
+          var element = document.getElementById('output');
+        })(),
+        printErr: function(text) {
+          if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
+          console.error(text);
+        },
+        canvas: (function() {
+          var canvas = document.getElementById('canvas');
+
+          // As a default initial behavior, pop up an alert when webgl context is lost. To make your
+          // application robust, you may want to override this behavior before shipping!
+          // See http://www.khronos.org/registry/webgl/specs/latest/1.0/#5.15.2
+          canvas.addEventListener("webglcontextlost", function(e) { alert('WebGL context lost. You will need to reload the page.'); e.preventDefault(); }, false);
+
+          return canvas;
+        })(),
+        setStatus: function(text) {
+          console.log("status:"+text);
+          if (!Module.setStatus.last) Module.setStatus.last = { time: Date.now(), text: '' };
+          if (text === Module.setStatus.last.text) return;
+          var m = text.match(/([^(]+)\((\d+(\.\d+)?)\/(\d+)\)/);
+          var now = Date.now();
+          if (m && now - Module.setStatus.last.time < 30) return; // if this is a progress update, skip it if too soon
+          Module.setStatus.last.time = now;
+          Module.setStatus.last.text = text;
+          if (m) {
+            text = m[1];
+            progressElement.value = parseInt(m[2])*100;
+            progressElement.max = parseInt(m[4])*100;
+            progressElement.hidden = false;
+            progressDiv.hidden = false;
+          } else {
+            progressElement.value = null;
+            progressElement.max = null;
+            progressElement.hidden = true;
+            progressDiv.hidden = true;
+			ResizeCanvas();
+            console.log("hiding loading bar");
+
+          }
+        },
+        totalDependencies: 0,
+        monitorRunDependencies: function(left) {
+          this.totalDependencies = Math.max(this.totalDependencies, left);
+          Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
+        }
+      };
+      Module.setStatus('Downloading...');
+      window.onerror = function(event) {
+        // TODO: do not warn on ok events like simulating an infinite loop or exitStatus
+        Module.setStatus('Exception thrown, see JavaScript console');
+        Module.setStatus = function(text) {
+          if (text) Module.printErr('[post-exception status] ' + text);
+        };
+      };
+
+    </script>
+	
+	<!--
+	<script src="adblocker.js" type="text/javascript"></script>
+	-->
+	<script async type="text/javascript" src="index.js?version=81"></script>
+  </body>
+</html>
+
+
