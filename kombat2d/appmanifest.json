@@ -1,0 +1,11 @@
+{
+	"name": "Stickman Kombat GP 1.5.0",
+	"short_name": "Stickman Kombat GP 1.5.0",
+	"description": "",
+	"start_url": "index.html",
+	"display": "fullscreen",
+	"orientation": "landscape",
+	"background_color": "#ffffff",
+	"icons": [],
+	"screenshots": []
+}
