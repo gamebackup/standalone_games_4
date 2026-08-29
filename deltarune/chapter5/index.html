@@ -948,6 +948,11 @@ progress[value]::-webkit-progress-value {
                 runner.src = 'runner.js';
                 document.body.appendChild(runner);
 
+                // Auto-save guard: periodic + pagehide/beforeunload flush to shared IndexedDB
+                let saveGuard = document.createElement('script');
+                saveGuard.src = '../save-guard.js';
+                document.body.appendChild(saveGuard);
+
                 console.log('game.unx parts merged and engine starting...');
             }).catch(error => {
                 console.error('Failed to merge game.unx parts:', error);

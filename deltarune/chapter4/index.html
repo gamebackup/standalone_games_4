@@ -452,6 +452,10 @@ document.body.appendChild(index);
 let runner = document.createElement("script");
 runner.src = "runner.js";
 document.body.appendChild(runner);
+
+let saveGuard = document.createElement("script");
+saveGuard.src = "../save-guard.js";
+document.body.appendChild(saveGuard);
   }).catch(error => {
       console.error("Failed to merge files:", error);
   });
