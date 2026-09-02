@@ -77,7 +77,6 @@
             width: 30px;
             -webkit-animation: rotation .8s linear infinite;
             -moz-animation: rotation .8s linear infinite;
-            -o-animation: rotation .8s linear infinite;
             animation: rotation 0.8s linear infinite;
 
             border-left: 0px solid rgb(235, 235, 235);
@@ -91,7 +90,6 @@
 
         @-webkit-keyframes rotation { from { -webkit-transform: rotate(0deg); } to { -webkit-transform: rotate(360deg); } }
         @-moz-keyframes rotation { from { -moz-transform: rotate(0deg); } to { -moz-transform: rotate(360deg); } }
-        @-o-keyframes rotation { from { -o-transform: rotate(0deg); } to { -o-transform: rotate(360deg); } }
         @keyframes rotation { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
         #console {
@@ -369,6 +367,7 @@
   var _blobURLs = {};
   (function() {
     var DATA_FILES = ['demo_bootstrap.data', 'demo_game00.data', 'demo_game01.data'];
+    var filesDone = 0;
 
     function tryAssemble(name) {
       return new Promise(function(resolve) {
@@ -379,12 +378,21 @@
           if (xhr.status === 200 && xhr.response.byteLength > 0) {
             assembleFile(name).then(resolve);
           } else {
+            filesDone++;
+            updateProgress();
             resolve();
           }
         };
-        xhr.onerror = function() { resolve(); };
+        xhr.onerror = function() { filesDone++; updateProgress(); resolve(); };
         xhr.send();
       });
+    }
+
+    function updateProgress() {
+      var pct = Math.round((filesDone / DATA_FILES.length) * 100);
+      progressElement.value = pct;
+      progressElement.max = 100;
+      progressElement.hidden = false;
     }
 
     function assembleFile(name) {
@@ -412,7 +420,7 @@
         }
 
         function finish() {
-          if (parts.length === 0) { resolve(); return; }
+          if (parts.length === 0) { filesDone++; updateProgress(); resolve(); return; }
           var total = parts.reduce(function(s, b) { return s + b.byteLength; }, 0);
           var merged = new Uint8Array(total);
           var off = 0;
@@ -421,6 +429,8 @@
             off += b.byteLength;
           });
           _blobURLs[name] = URL.createObjectURL(new Blob([merged]));
+          filesDone++;
+          updateProgress();
           statusElement.innerHTML = name + ' assembled (' + (total / 1048576).toFixed(1) + ' MB)';
           resolve();
         }
@@ -430,6 +440,7 @@
     }
 
     statusElement.innerHTML = 'Checking for split data files...';
+    spinnerElement.hidden = false;
     Promise.all(DATA_FILES.map(tryAssemble)).then(function() {
       if (Object.keys(_blobURLs).length > 0) {
         statusElement.innerHTML = 'Data assembled, loading engine...';
