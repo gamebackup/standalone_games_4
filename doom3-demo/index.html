@@ -285,6 +285,9 @@
   var Module = {
     preRun: [],
     postRun: [],
+    locateFile: function(path) {
+      return _blobURLs[path] || path;
+    },
     print: (function () {
       return function (text) {
         if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
@@ -361,19 +364,19 @@
   };
 </script>
 <script type="text/javascript">
-  // Part reassembly: if .data.part000 files exist, fetch all parts and
-  // redirect XHR requests for the .data file to an in-memory blob URL.
+  // Part reassembly: if .data.part000 files exist, fetch all parts,
+  // concatenate into a Blob, and serve via Module.locateFile.
+  var _blobURLs = {};
   (function() {
     var DATA_FILES = ['demo_bootstrap.data', 'demo_game00.data', 'demo_game01.data'];
-    var blobURLs = {};
-    var pending = 0;
 
     function tryAssemble(name) {
       return new Promise(function(resolve) {
         var xhr = new XMLHttpRequest();
-        xhr.open('HEAD', name + '.part000', true);
+        xhr.open('GET', name + '.part000', true);
+        xhr.responseType = 'arraybuffer';
         xhr.onload = function() {
-          if (xhr.status === 200) {
+          if (xhr.status === 200 && xhr.response.byteLength > 0) {
             assembleFile(name).then(resolve);
           } else {
             resolve();
@@ -395,7 +398,7 @@
           xhr.open('GET', partName, true);
           xhr.responseType = 'arraybuffer';
           xhr.onload = function() {
-            if (xhr.status === 200) {
+            if (xhr.status === 200 && xhr.response.byteLength > 0) {
               parts.push(xhr.response);
               idx++;
               statusElement.innerHTML = 'Assembling ' + name + ' (part ' + idx + '...)';
@@ -417,8 +420,7 @@
             merged.set(new Uint8Array(b), off);
             off += b.byteLength;
           });
-          var blob = new Blob([merged]);
-          blobURLs[name] = URL.createObjectURL(blob);
+          _blobURLs[name] = URL.createObjectURL(new Blob([merged]));
           statusElement.innerHTML = name + ' assembled (' + (total / 1048576).toFixed(1) + ' MB)';
           resolve();
         }
@@ -427,35 +429,11 @@
       });
     }
 
-    // Start assembly for all files, then load engine
     statusElement.innerHTML = 'Checking for split data files...';
     Promise.all(DATA_FILES.map(tryAssemble)).then(function() {
-      // Monkey-patch XHR to redirect .data requests to blob URLs
-      if (Object.keys(blobURLs).length > 0) {
-        var OrigXHR = XMLHttpRequest;
-        window.XMLHttpRequest = function() {
-          var xhr = new OrigXHR();
-          var origOpen = xhr.open.bind(xhr);
-          xhr.open = function(method, url) {
-            for (var key in blobURLs) {
-              if (url === key || url.endsWith('/' + key)) {
-                arguments[1] = blobURLs[key];
-                break;
-              }
-            }
-            return origOpen.apply(null, arguments);
-          };
-          return xhr;
-        };
-        window.XMLHttpRequest.prototype = OrigXHR.prototype;
-        window.XMLHttpRequest.UNSENT = 0;
-        window.XMLHttpRequest.OPENED = 1;
-        window.XMLHttpRequest.HEADERS_RECEIVED = 2;
-        window.XMLHttpRequest.LOADING = 3;
-        window.XMLHttpRequest.DONE = 4;
+      if (Object.keys(_blobURLs).length > 0) {
         statusElement.innerHTML = 'Data assembled, loading engine...';
       }
-      // Load d3wasm.js
       var s = document.createElement('script');
       s.src = 'd3wasm.js';
       document.body.appendChild(s);
