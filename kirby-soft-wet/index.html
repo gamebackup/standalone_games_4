@@ -186,5 +186,46 @@
       loadingtext.remove();
         });
     </script>
+    <script>
+      // x3e iframe input fix: when played inside the host site's <iframe> the game
+      // never receives keyboard input because the frame is never given focus. Grab
+      // focus on any interaction, and keep sending a benign held key (Home, unbound
+      // in-game) so the Input framework's hotswap assigns a keyboard profile to the
+      // player without requiring the user to press anything first.
+      (function () {
+        var PRESS_MS = 750;
+        var GAP_MS = 350;
+        var MAX_CYCLES = 240;
+        function opts() { return { key: "Home", code: "Home", keyCode: 36, which: 36, bubbles: true, cancelable: true }; }
+        function canvas() { return document.getElementById("canvas"); }
+        function emit(type) {
+          var o = opts();
+          document.dispatchEvent(new KeyboardEvent(type, o));
+          window.dispatchEvent(new KeyboardEvent(type, o));
+          var c = canvas();
+          if (c) c.dispatchEvent(new KeyboardEvent(type, o));
+        }
+        function focusGame() {
+          var c = canvas();
+          if (c) c.focus();
+          try { window.focus(); } catch (e) {}
+        }
+        var cycles = 0;
+        var timer;
+        function stopFake() { if (timer) clearInterval(timer); emit("keyup"); }
+        function pump() {
+          if (++cycles > MAX_CYCLES) { stopFake(); return; }
+          emit("keydown");
+          setTimeout(function () { emit("keyup"); }, PRESS_MS);
+        }
+        timer = setInterval(pump, PRESS_MS + GAP_MS);
+        pump();
+        document.addEventListener("keydown", function (e) { if (e.isTrusted) stopFake(); }, true);
+        document.addEventListener("pointerdown", function (e) { if (e.isTrusted) { stopFake(); focusGame(); } }, true);
+        window.addEventListener("load", focusGame);
+        focusGame();
+        console.log("KSW focus + synthetic input shim active");
+      })();
+    </script>
   </body>
 </html>
