@@ -110,7 +110,9 @@ let game;
 let cardIdx = 0;
 let cardChangeSpeed = 1500;
 
-let segmentCardCount = 52;
+const nextSegmentLength = () => 3 + Math.floor(Math.random() * 23); // 3–25 cards before next check
+
+let segmentCardCount = nextSegmentLength();
 let cardsInSegment = 0;
 let countHistory = [];
 let currentCheck = null;
@@ -172,7 +174,7 @@ const startGame = () => {
     shadowOverlay.classList.remove("d-none");
     preventScroll();
     game = new Game();
-    segmentCardCount = 52;
+    segmentCardCount = nextSegmentLength();
     cardsInSegment = 0;
     countHistory = [];
     currentCheck = null;
@@ -230,7 +232,7 @@ const continueDeck = () => {
     if (game.isDeckEmpty()) {
         game.refill();
     }
-    segmentCardCount = 26;
+    segmentCardCount = nextSegmentLength();
     cardsInSegment = 0;
     renderInPlayControls();
     gameInterval = setInterval(changeCard, cardChangeSpeed);
