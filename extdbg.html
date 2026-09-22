@@ -1,0 +1,10 @@
+<!DOCTYPE html><html><body><div id="out"></div></body></html>
+<script>
+const el=t=>{var d=document.createElement('div');d.textContent=t;document.getElementById('out').appendChild(d);};
+fetch(new URL('live-picodrive.data', location.href)).then(async r=>{
+  el('url='+r.url+' status='+r.status+' type='+r.type);
+  const buf=await r.arrayBuffer();
+  el('bytes='+buf.byteLength);
+  el('head='+String.fromCharCode(...new Uint8Array(buf.slice(0,4))));
+}).catch(e=>el('ERR '+e.message));
+</script>
