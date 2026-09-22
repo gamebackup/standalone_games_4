@@ -2,6 +2,15 @@ const loading = document.getElementById("loading");
 const canvas = document.getElementById("canvas");
 const musicChoice = document.getElementById("music-choice");
 
+// --- Helpers ---
+const fetchJson = (url, ms = 15000) => fetchWithTimeout(url, ms).then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}: ${url}`); return r; });
+async function fetchWithTimeout(url, ms = 15000) {
+	const ctl = new AbortController();
+	const t = setTimeout(() => ctl.abort(), ms);
+	try { return await fetch(url, { signal: ctl.signal }); }
+	finally { clearTimeout(t); }
+}
+
 // --- OPFS helpers ---
 const opfs = await navigator.storage.getDirectory();
 
@@ -15,16 +24,20 @@ async function opfsWrite(name, data) {
 	const w = await (await opfs.getFileHandle(name, { create: true })).createWritable();
 	await w.write(data); await w.close();
 }
+function tarValid(buf) {
+	if (buf.length < 512) return false;
+	return String.fromCharCode(buf[257], buf[258], buf[259], buf[260], buf[261]) === "ustar";
+}
 
 // --- Chunked tar download ---
 async function downloadTar(base, label) {
 	loading.textContent = `Downloading ${label}...`;
-	const count = parseInt(await (await fetch(base + ".count")).text());
+	const count = parseInt(await (await fetchJson(base + ".count")).text());
+	if (!Number.isFinite(count) || count <= 0) throw new Error(`Bad chunk count for ${label}`);
 	const chunks = [];
 	let total = 0;
 	for (let i = 0; i < count; i++) {
-		const res = await fetch(`${base}${String(i).padStart(2, "0")}`);
-		if (!res.ok) throw new Error(`Failed: ${res.status}`);
+		const res = await fetchJson(`${base}${String(i).padStart(2, "0")}`, 30000);
 		const reader = res.body.getReader();
 		for (;;) {
 			const { done, value } = await reader.read();
@@ -37,16 +50,19 @@ async function downloadTar(base, label) {
 	const tar = new Uint8Array(total);
 	let off = 0;
 	for (const c of chunks) { tar.set(c, off); off += c.length; }
+	if (!tarValid(tar)) throw new Error(`Downloaded ${label} is corrupt`);
 	return tar;
 }
 
 async function getTar(base, label, key) {
 	try {
 		loading.textContent = `Loading cached ${label}...`;
-		return await opfsRead(key);
+		const buf = await opfsRead(key);
+		if (!tarValid(buf)) throw new Error("cached tar corrupt");
+		return buf;
 	} catch {
 		const tar = await downloadTar(base, label);
-		try { loading.textContent = `Caching ${label}...`; await opfsWrite(key, tar); } catch {}
+		try { loading.textContent = `Caching ${label}...`; await opfsWrite(key, tar); } catch (e) { try { await opfs.removeEntry(key); } catch {} }
 		return tar;
 	}
 }
@@ -78,24 +94,30 @@ const runtimeP = (async () => {
 		.withResourceLoader((type, _name, defaultUri, _integrity, behavior) => {
 			if (type === "dotnetwasm" && behavior === "dotnetwasm") {
 				return (async () => {
-					const count = parseInt(await (await fetch(defaultUri + ".count")).text());
+					const countRes = await fetchJson(defaultUri + ".count", 30000);
+					const count = parseInt(await countRes.text());
+					if (!Number.isFinite(count) || count <= 0 || count > 4096) throw new Error("Bad wasm chunk count");
 					let idx = 0;
-					const fetchNext = async () => {
-						if (idx >= count) return null;
-						const res = await fetch(defaultUri + idx);
+					let consumer = null;
+					const startNext = async () => {
+						if (idx >= count) { consumer = null; return; }
+						const res = await fetchJson(defaultUri + idx, 30000);
 						idx++;
-						return res.ok ? res.body.getReader() : null;
+						consumer = res.body.getReader();
 					};
-					let current = await fetchNext();
-					if (!current) throw new Error("failed to fetch first wasm chunk");
+					await startNext();
+					if (!consumer) throw new Error("failed to fetch first wasm chunk");
 					return new Response(new ReadableStream({
 						async pull(controller) {
-							const { value, done } = await current.read();
-							if (done || !value) {
-								current = await fetchNext();
-								if (current) await this.pull(controller);
-								else controller.close();
-							} else controller.enqueue(value);
+							for (;;) {
+								const { value, done } = await consumer.read();
+								if (done || (!value || !value.length)) {
+									await startNext();
+									if (consumer) continue;
+									controller.close(); return;
+								}
+								controller.enqueue(value); return;
+							}
 						},
 					}), { headers: { "Content-Type": "application/wasm" } });
 				})();
