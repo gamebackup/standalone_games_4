@@ -54,6 +54,63 @@
 			startAutosave();
 		})();
 	</script>
+	<script>
+		(function () {
+			var SETTINGS = {
+				skipPointerMovePicking: true,
+				freezeMaterials: true,
+				intervalMs: 4000
+			};
+
+			var knownMaterialCount = -1;
+
+			function getExcludedMaterials() {
+				var skip = [];
+				try {
+					var skin = ig.gameScene.carSkeleton && ig.gameScene.carSkeleton.skin;
+					var material = skin && skin.material;
+					if (material) {
+						skip.push(material);
+						(material.subMaterials || []).forEach(function (subMaterial) {
+							skip.push(subMaterial);
+						});
+					}
+				} catch (err) {
+				}
+				return skip;
+			}
+
+			function freezeNewMaterials(scene) {
+				if (!SETTINGS.freezeMaterials) return;
+				if (scene.materials.length === knownMaterialCount) return;
+				knownMaterialCount = scene.materials.length;
+				var skip = getExcludedMaterials();
+				scene.materials.forEach(function (material) {
+					if (skip.indexOf(material) !== -1) return;
+					if (material.checkReadyOnlyOnce) return;
+					if (material.needAlphaBlending && material.needAlphaBlending()) return;
+					if (material.needAlphaTesting && material.needAlphaTesting()) return;
+					try {
+						material.freeze();
+					} catch (err) {
+					}
+				});
+			}
+
+			function optimize() {
+				if (!window.BABYLON || !BABYLON.Engine || !BABYLON.Engine.LastCreatedScene) return false;
+				var scene = BABYLON.Engine.LastCreatedScene;
+				if (SETTINGS.skipPointerMovePicking) {
+					scene.skipPointerMovePicking = true;
+					scene.constantlyUpdateMeshUnderPointer = false;
+				}
+				freezeNewMaterials(scene);
+				return true;
+			}
+
+			setInterval(optimize, SETTINGS.intervalMs);
+		})();
+	</script>
 	<!-- AnalyticsCode -->
 
 	<!-- APICode -->
