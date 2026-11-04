@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title>Dynamons</title>
+
+	<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+
+
+	
+	<script type="text/javascript" src="./lib/soundjs.min.js"></script>
+	<script type="text/javascript" src="./Collectimons.js"></script>
+	
+	<script>
+        window.addEventListener ("touchmove", function (event) { event.preventDefault (); }, false);
+        if (typeof window.devicePixelRatio != 'undefined' && window.devicePixelRatio > 2) {
+            var meta = document.getElementById ("viewport");
+            meta.setAttribute ('content', 'width=device-width, initial-scale=' + (2 / window.devicePixelRatio) + ', user-scalable=0');
+        }
+    </script>
+	
+<script>
+      
+   var initialized = false; 
+   
+   function initGDApi(){ // invoke this function to initialize api
+	   
+	if(!initialized){ // Api will be initialized once, so preroll is shown once either
+	   
+	console.log("Api started");
+		   var settings = {
+            gameId: "2f658de7229e49dba68786ffdc921e76",
+            userId: "FB2B5D8E-9E6E-40E0-9909-634EBA5E5F8F-s1",
+            resumeGame: resumeGame,
+            pauseGame: pauseGame,
+            onInit: function (data) {
+		    initialized = true;
+            },
+            onError: function (data) {
+               console.log("Error:"+data);
+            }
+			};
+			(function(i,s,o,g,r,a,m){
+				i['GameDistribution']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)};i[r].l=1*new Date();a=s.createElement(o);m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a, m);
+			})(window, document, 'script', 'gd-api-stub.js', 'gdApi');
+       
+			gdApi(settings);
+
+			function resumeGame() {
+				console.log("Resume game");
+			}
+
+			function pauseGame() {
+				console.log("Pause game");
+			}  
+
+	   }
+	   
+   }
+
+   initGDApi(); // in order to initialize api
+   
+   function callMidroll()
+   {
+   console.log("midroll called");
+	 gdApi.showBanner(); 	
+   }
+    
+</script>	
+
+	<style>
+		html,body { margin: 0; padding: 0; height: 100%; background-color: #000;}
+		#content { background: #000000; width: 100%; height: 100%; z-index: 1; overflow: visible; position: fixed;}
+		canvas { display: inherit; margin-top: 0 !important}
+	</style>
+
+</head>
+<body>
+
+<div id="content"></div>
+<script type="text/javascript">
+
+        var handleClick = function(e)
+        {
+            e.preventDefault();
+            window.open("https://goo.gl/4dxygc");
+        }
+
+        // Embed application, fit to best window size
+        var getSize = function() {
+
+            var orientation = "portrait";
+            var element = document.getElementById("content");
+            var clientWidth = element.clientWidth;
+            var clientHeight = element.clientHeight;
+            var minWidth = 320 ;
+            var minHeight = 480 ;
+            var finalWidth = minWidth;
+            var finalHeight = minHeight;
+            var bannerHeight = 0;
+            clientHeight -= bannerHeight;
+            element.style.height = clientHeight + "px";
+
+            if (orientation == "portrait")
+            {
+                var currRatio = clientHeight / clientWidth;
+                var minRatio = minHeight / finalWidth;
+                var maxHeight = 568 ;
+                if (maxHeight == null) maxHeight = finalHeight;
+                var maxRatio = maxHeight / finalWidth;
+                if (currRatio <= minRatio)
+                {
+                    finalHeight = minHeight;
+                }
+                else if (currRatio >= maxRatio)
+                {
+                    finalHeight = maxHeight;
+                }
+                else
+                {
+                    finalHeight = Math.floor(finalWidth * currRatio);
+                }
+            }
+            else if (orientation == "landscape")
+            {
+                var currRatio = clientWidth / clientHeight;
+                var minRatio = minWidth / finalHeight;
+                var maxWidth = null ;
+                if (maxWidth == null) maxWidth = finalWidth;
+                var maxRatio = maxWidth / finalHeight;
+                if (currRatio <= minRatio)
+                {
+                    finalWidth = minWidth;
+                }
+                else if (currRatio >= maxRatio)
+                {
+                    finalWidth = maxWidth;
+                }
+                else
+                {
+                    finalWidth = Math.floor(finalHeight * currRatio);
+                }
+            }
+
+            return {width: finalWidth, height: finalHeight};
+        }
+
+        var size = getSize();
+        //size.height = size.height - document.getElementById("top-banner").clientHeight;
+
+
+        lime.embed ("content", size.width, size.height, "000000");
+
+
+        // Resize document width to fix Samsung Galaxy stock-browser render freeze on touch bug:
+        if (/Android/.test(navigator.userAgent) && !(/Chrome/.test(navigator.userAgent)))
+        {
+            var ds = document.documentElement.style;
+            var origW = ds.width;
+            ds.width = "101%";
+            setTimeout(function() { ds.width = origW; }, 500);
+        }
+        // Add padding to allow minimal-ui in iOS8+:
+        else if (/iPhone/.test(navigator.userAgent) && (/Safari/.test(navigator.userAgent)))
+        {
+            document.documentElement.style.paddingBottom = "80px";
+        }
+		
+		
+		<!--logo.style.height = "200px";-->
+	var element = document.getElementById("content");
+	var logo = new Image();
+		logo.onload = function()
+		{
+			element.appendChild(logo);
+		}
+		logo.src = 'images/logo.png';
+		logo.style.position = "absolute";
+		logo.style.top = 0;
+		logo.style.left = 0;
+		logo.style.zIndex = "1";
+		<!--logo.style.margin = "5px 1%";-->
+		logo.style.left = "0%"
+		logo.style.top = "1%"
+		logo.style.width = "60px";
+		logo.onclick = function() {
+		  window.open('http://kizi.com/?ch=2792&utm_source=GameDistribution', '_blank');	
+
+		};	
+		
+		var video = new Image();
+		video.onload = function()
+		{
+			element.appendChild(video);
+		}
+		video.src = 'images/video.png';
+		video.style.position = "absolute";
+		video.style.top = 0;
+		video.style.left = 0;
+		video.style.zIndex = "1";
+		<!--video.style.margin = "5px 1% 40% 84%";-->
+		video.style.left = "73%"
+		video.style.top = "3%"
+		video.style.width = "80px";
+		video.onclick = function() {
+		  window.open('http://kizi.com/videos/dynamons/?ch=2793&utm_source=GameDistribution', '_blank');	
+
+		};		
+
+    </script>
+</body>
+</html>
