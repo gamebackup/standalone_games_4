@@ -1,0 +1,19 @@
+menu_language,english,deutsch
+menu_play,play,starten
+menu_options,options,optionen
+menu_end,end,beenden
+menu_sure,are you sure?,sicher?
+menu_yes,yes,ja
+menu_no,no,nein
+menu_continue,continue,weiter
+menu_reset,reset progress,fortschritt zurücksetzen
+menu_unlock,unlock all,alles freischalten
+menu_sound,sound volume,geräusche lautstärke
+menu_music,music volume,musik lautstärke
+menu_fullscreen,fullscreen,vollbild
+menu_sfenster,windowed,fenster
+menu_cursor,system curser,system mauszeiger
+menu_shake,screen shake,bildschirm wackeln
+menu_previous,continue previous run?,letztes spiel fortsetzen?
+menu_abandon,abandon,aufgeben
+menu_wishlist,wishlist,wunschliste

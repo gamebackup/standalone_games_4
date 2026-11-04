@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <!-- Keeps the copy self-contained: the build tries to pull CrazyGames' HTML5 SDK
+         from their CDN and beacon to Unity Cloud Diagnostics/Remote Config at runtime.
+         Only same-origin, blob: and data: resources are allowed below. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' blob: data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob:; connect-src 'self' blob: data:; img-src 'self' blob: data:; media-src 'self' blob: data:; worker-src 'self' blob:; child-src 'self' blob:; style-src 'self' 'unsafe-inline'; font-src 'self' data:" />
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0, initial-scale=1.0, user-scalable=no, minimal-ui" />
+    <title>Moto Racing Club</title>
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #13141E;
+            font-family: 'Nunito', Arial, "Helvetica Neue", Helvetica, sans-serif;
+        }
+
+        #unity-container {
+            position: absolute;
+            inset: 0;
+        }
+
+        #unity-canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            background-color: #13141E;
+        }
+
+        #unity-loading {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: #F9FAFF;
+            font-size: 14px;
+            background-image: linear-gradient(180deg, #090C15 0%, #16143C 50%, #452A65 100%);
+            z-index: 2;
+        }
+
+        #unity-progress-track {
+            width: 200px;
+            height: 4px;
+            margin-top: 18px;
+            border-radius: 2px;
+            background-color: rgba(255, 255, 255, 0.15);
+            overflow: hidden;
+        }
+
+        #unity-progress-fill {
+            width: 0%;
+            height: 100%;
+            background-color: #F9FAFF;
+            transition: width 120ms linear;
+        }
+
+        #unity-status {
+            margin-top: 12px;
+            opacity: 0.6;
+            font-size: 12px;
+        }
+
+        #unity-warning {
+            position: absolute;
+            left: 50%;
+            top: 5%;
+            transform: translateX(-50%);
+            padding: 10px 14px;
+            border-radius: 6px;
+            background-color: #c22;
+            color: #fff;
+            font-size: 13px;
+            display: none;
+            z-index: 3;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="unity-container">
+        <canvas id="unity-canvas"></canvas>
+
+        <div id="unity-loading">
+            <div>Preparing your game…</div>
+            <div id="unity-progress-track"><div id="unity-progress-fill"></div></div>
+            <div id="unity-status">0%</div>
+        </div>
+
+        <div id="unity-warning"></div>
+    </div>
+
+    <!-- Local replacement for the CrazyGames SDK; must exist before the build boots. -->
+    <script src="JS/crazygames-sdk-shim.js"></script>
+    <script src="Build/moto-racing-club.loader.js?v=3"></script>
+
+    <script>
+        var canvas = document.getElementById('unity-canvas');
+        var loading = document.getElementById('unity-loading');
+        var fill = document.getElementById('unity-progress-fill');
+        var status = document.getElementById('unity-status');
+        var warning = document.getElementById('unity-warning');
+
+        function showWarning(message) {
+            var node = document.createElement('div');
+            node.textContent = message;
+            warning.appendChild(node);
+            warning.style.display = 'block';
+        }
+
+        var config = {
+            dataUrl: 'Build/moto-racing-club.data?v=3',
+            frameworkUrl: 'Build/moto-racing-club.framework.js?v=3',
+            codeUrl: 'Build/moto-racing-club.wasm?v=3',
+            streamingAssetsUrl: 'StreamingAssets',
+            companyName: 'CrazyGames',
+            productName: 'Moto Racing Club',
+            productVersion: '1.0',
+            showBanner: function (message) {
+                showWarning(message);
+            }
+        };
+
+        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+            // Keep the default canvas sizing; the game handles touch input itself.
+            canvas.addEventListener('touchstart', function (e) { e.preventDefault(); }, { passive: false });
+        }
+
+        createUnityInstance(canvas, config, function (progress) {
+            var percent = Math.round(progress * 100);
+            fill.style.width = percent + '%';
+            status.textContent = percent + '%';
+        }).then(function (instance) {
+            window.unityInstance = instance;
+            loading.style.display = 'none';
+        }).catch(function (error) {
+            loading.style.display = 'none';
+            showWarning(String(error));
+            console.error('Unity failed to load:', error);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Gun Builder</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimal-ui">
+		<link type="text/css" rel="stylesheet" href="CSS/styles.css" />
+
+		<!-- standalone shim: the original embed loads Lagged's ad SDK (lagged_tps.js)
+		     and the Google IMA SDK, and calls the Cordova "admob" plugin for
+		     interstitials. none of that exists here, so stub it out. -->
+		<script type="text/javascript">
+			window.admob = {
+				requestInterstitialAd: function () {},
+				showInterstitialAd: function (cb) { if (typeof cb === 'function') cb(); },
+				prepareInterstitialAd: function () {}
+			};
+		</script>
+
+		<script src="JS/lib/jquery.js"></script>
+		<script src="JS/lib/buzz.js"></script>
+		<script src="JS/lib/jquery.cookie.js"></script>
+		<script src="JS/lib/stats.js"></script>
+		<script src="JS/lib/pixi.js"></script>
+		<script src="JS/lib/class.js"></script>
+		<script src="JS/mini-lagged.js"></script>
+	</head>
+
+	<body id="game">
+		<div class='loadBar'>0%</div>
+		<div class='import hide'>PASTE THE GUN CODE:<br/><textarea></textarea><br/><button>IMPORT</button></div>
+		<div class='export hide'>COPY AND SHARE YOUR GUN CODE:<br/><textarea></textarea></div>
+	</body>
+</html>

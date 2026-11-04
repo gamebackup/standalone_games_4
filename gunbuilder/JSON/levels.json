@@ -1,0 +1,1418 @@
+[
+    {
+        "level": 1,
+        "name": "M1911",
+        "part": "grip_m1911",
+        "x": 82,
+        "y": 23
+    },
+    {
+        "level": 1,
+        "name": "M1911",
+        "part": "frame_m1911",
+        "x": 32,
+        "y": 23
+    },
+    {
+        "level": 1,
+        "name": "M1911",
+        "part": "barrel_m1911",
+        "x": 6,
+        "y": 7
+    },
+    {
+        "level": 2,
+        "name": "D EAGLE",
+        "part": "deagle_barrel",
+        "x": 9,
+        "y": 8
+    },
+    {
+        "level": 2,
+        "name": "D EAGLE",
+        "part": "deagle_grip",
+        "x": 91,
+        "y": 27
+    },
+    {
+        "level": 2,
+        "name": "D EAGLE",
+        "part": "deagle_trigger",
+        "x": 29,
+        "y": 26
+    },
+    {
+        "level": 3,
+        "name": "Glock",
+        "part": "grip_glock",
+        "x": 40,
+        "y": 19
+    },
+    {
+        "level": 3,
+        "name": "Glock",
+        "part": "frame_glock",
+        "x": 6,
+        "y": 18
+    },
+    {
+        "level": 3,
+        "name": "Glock",
+        "part": "barrel_glock",
+        "x": 4,
+        "y": 4
+    },
+    {
+        "level": 4,
+        "name": "Revolver .38",
+        "part": "grip_revolver38",
+        "x": 59,
+        "y": 15
+    },
+    {
+        "level": 4,
+        "name": "Revolver .38",
+        "part": "frame_revolver38",
+        "x": 22,
+        "y": 2
+    },
+    {
+        "level": 4,
+        "name": "Revolver .38",
+        "part": "barrel_revolver38",
+        "x": 5,
+        "y": 1
+    },
+    {
+        "level": 5,
+        "name": "Shotgun",
+        "part": "grip_shotgun",
+        "x": 305,
+        "y": 18
+    },
+    {
+        "level": 5,
+        "name": "Shotgun",
+        "part": "frame_shotgun_1",
+        "x": 219,
+        "y": 10
+    },
+    {
+        "level": 5,
+        "name": "Shotgun",
+        "part": "barrel_shotgun",
+        "x": 5,
+        "y": 8
+    },
+    {
+        "level": 6,
+        "name": "Tec 9",
+        "part": "grip_tec9",
+        "x": 123,
+        "y": 41
+    },
+    {
+        "level": 6,
+        "name": "Tec 9",
+        "part": "frame_tec9_1",
+        "x": 69,
+        "y": 22
+    },
+    {
+        "level": 6,
+        "name": "Tec 9",
+        "part": "frame_tec9_2",
+        "x": 84,
+        "y": 62
+    },
+    {
+        "level": 6,
+        "name": "Tec 9",
+        "part": "barrel_tec9",
+        "x": 10,
+        "y": 12
+    },
+    {
+        "level": 7,
+        "name": "Ak 47",
+        "part": "grip_ak47",
+        "x": 228,
+        "y": 41
+    },
+    {
+        "level": 7,
+        "name": "Ak 47",
+        "part": "frame_ak47_1",
+        "x": 131,
+        "y": 5
+    },
+    {
+        "level": 7,
+        "name": "Ak 47",
+        "part": "frame_ak47_2",
+        "x": 138,
+        "y": 38
+    },
+    {
+        "level": 7,
+        "name": "Ak 47",
+        "part": "barrel_ak47",
+        "x": 2,
+        "y": 4
+    },
+    {
+        "level": 8,
+        "name": "Carbine",
+        "part": "grip_carbine",
+        "x": 345,
+        "y": 33
+    },
+    {
+        "level": 8,
+        "name": "Carbine",
+        "part": "frame_carbine_1",
+        "x": 150,
+        "y": 29
+    },
+    {
+        "level": 8,
+        "name": "Carbine",
+        "part": "frame_carbine_2",
+        "x": 150,
+        "y": 13
+    },
+    {
+        "level": 8,
+        "name": "Carbine",
+        "part": "barrel_carbine",
+        "x": 7,
+        "y": 16
+    },
+    {
+        "level": 9,
+        "name": "Magnum .45",
+        "part": "grip_magnum",
+        "x": 124,
+        "y": 20
+    },
+    {
+        "level": 9,
+        "name": "Magnum .45",
+        "part": "frame_magnum",
+        "x": 87,
+        "y": 1
+    },
+    {
+        "level": 9,
+        "name": "Magnum .45",
+        "part": "barrel_magnum",
+        "x": 5,
+        "y": 3
+    },
+    {
+        "level": 10,
+        "name": "AUG",
+        "part": "aug_addon",
+        "x": 84,
+        "y": 41
+    },
+    {
+        "level": 10,
+        "name": "AUG",
+        "part": "aug_barrel",
+        "x": 3,
+        "y": 28
+    },
+    {
+        "level": 10,
+        "name": "AUG",
+        "part": "aug_frame_1",
+        "x": 88,
+        "y": 2
+    },
+    {
+        "level": 10,
+        "name": "AUG",
+        "part": "aug_frame_2",
+        "x": 177,
+        "y": 50
+    },
+    {
+        "level": 10,
+        "name": "AUG",
+        "part": "aug_trigger",
+        "x": 99,
+        "y": 22
+    },
+    {
+        "level": 11,
+        "name": "FNP90",
+        "part": "fnp90_barrel",
+        "x": 3,
+        "y": 29
+    },
+    {
+        "level": 11,
+        "name": "FNP90",
+        "part": "fnp90_frame_1",
+        "x": 22,
+        "y": 3
+    },
+    {
+        "level": 11,
+        "name": "FNP90",
+        "part": "fnp90_frame_2",
+        "x": 31,
+        "y": 17
+    },
+    {
+        "level": 11,
+        "name": "FNP90",
+        "part": "fnp90_grip",
+        "x": 72,
+        "y": 17
+    },
+    {
+        "level": 11,
+        "name": "FNP90",
+        "part": "fnp90_trigger",
+        "x": 21,
+        "y": 29
+    },
+    {
+        "level": 12,
+        "name": "G3",
+        "part": "g3_addon",
+        "x": 256,
+        "y": 14
+    },
+    {
+        "level": 12,
+        "name": "G3",
+        "part": "g3_barrel",
+        "x": 2,
+        "y": 2
+    },
+    {
+        "level": 12,
+        "name": "G3",
+        "part": "g3_frame",
+        "x": 172,
+        "y": 43
+    },
+    {
+        "level": 12,
+        "name": "G3",
+        "part": "g3_grip",
+        "x": 232,
+        "y": 33
+    },
+    {
+        "level": 12,
+        "name": "G3",
+        "part": "g3_trigger",
+        "x": 97,
+        "y": 2
+    },
+    {
+        "level": 13,
+        "name": "SOCOM",
+        "part": "socom_addon",
+        "x": 8,
+        "y": 5
+    },
+    {
+        "level": 13,
+        "name": "SOCOM",
+        "part": "socom_barrel",
+        "x": 95,
+        "y": 4
+    },
+    {
+        "level": 13,
+        "name": "SOCOM",
+        "part": "socom_frame",
+        "x": 103,
+        "y": 24
+    },
+    {
+        "level": 13,
+        "name": "SOCOM",
+        "part": "socom_grip",
+        "x": 167,
+        "y": 27
+    },
+    {
+        "level": 13,
+        "name": "SOCOM",
+        "part": "socom_trigger",
+        "x": 101,
+        "y": 20
+    },
+    {
+        "level": 14,
+        "name": "MP5",
+        "part": "mp5_addon",
+        "x": 138,
+        "y": 10
+    },
+    {
+        "level": 14,
+        "name": "MP5",
+        "part": "mp5_barrel",
+        "x": 0,
+        "y": 0
+    },
+    {
+        "level": 14,
+        "name": "MP5",
+        "part": "mp5_frame",
+        "x": 61,
+        "y": 37
+    },
+    {
+        "level": 14,
+        "name": "MP5",
+        "part": "mp5_grip",
+        "x": 119,
+        "y": 41
+    },
+    {
+        "level": 14,
+        "name": "MP5",
+        "part": "mp5_trigger",
+        "x": 80,
+        "y": 6
+    },
+    {
+        "level": 15,
+        "name": "M249",
+        "part": "m249_addon",
+        "x": 367,
+        "y": 19
+    },
+    {
+        "level": 15,
+        "name": "M249",
+        "part": "m249_barrel",
+        "x": 0,
+        "y": 1
+    },
+    {
+        "level": 15,
+        "name": "M249",
+        "part": "m249_frame",
+        "x": 128,
+        "y": 7
+    },
+    {
+        "level": 15,
+        "name": "M249",
+        "part": "m249_grip",
+        "x": 316,
+        "y": 61
+    },
+    {
+        "level": 15,
+        "name": "M249",
+        "part": "m249_trigger",
+        "x": 231,
+        "y": 0
+    },
+    {
+        "level": 16,
+        "name": "Mac 10",
+        "part": "grip_mac10",
+        "x": 106,
+        "y": 53
+    },
+    {
+        "level": 16,
+        "name": "Mac 10",
+        "part": "frame_mac10_1",
+        "x": 29,
+        "y": 11
+    },
+    {
+        "level": 16,
+        "name": "Mac 10",
+        "part": "frame_mac10_2",
+        "x": 28,
+        "y": 9
+    },
+    {
+        "level": 16,
+        "name": "Mac 10",
+        "part": "frame_mac10_3",
+        "x": 110,
+        "y": 112
+    },
+    {
+        "level": 16,
+        "name": "Mac 10",
+        "part": "barrel_mac10",
+        "x": 1,
+        "y": 11
+    },
+    {
+        "level": 16,
+        "name": "Mac 10",
+        "part": "addon_mac10",
+        "x": 120,
+        "y": 2
+    },
+    {
+        "level": 17,
+        "name": "ARC300",
+        "part": "arc300_addon_1",
+        "x": 253,
+        "y": 27
+    },
+    {
+        "level": 17,
+        "name": "ARC300",
+        "part": "arc300_addon_2",
+        "x": 30,
+        "y": 6
+    },
+    {
+        "level": 17,
+        "name": "ARC300",
+        "part": "arc300_barrel",
+        "x": 2,
+        "y": 25
+    },
+    {
+        "level": 17,
+        "name": "ARC300",
+        "part": "arc300_frame",
+        "x": 171,
+        "y": 61
+    },
+    {
+        "level": 17,
+        "name": "ARC300",
+        "part": "arc300_grip",
+        "x": 228,
+        "y": 50
+    },
+    {
+        "level": 17,
+        "name": "ARC300",
+        "part": "arc300_trigger",
+        "x": 176,
+        "y": 25
+    },
+    {
+        "level": 18,
+        "name": "FAL",
+        "part": "fal_addon",
+        "x": 308,
+        "y": 12
+    },
+    {
+        "level": 18,
+        "name": "FAL",
+        "part": "fal_barrel",
+        "x": 7,
+        "y": 25
+    },
+    {
+        "level": 18,
+        "name": "FAL",
+        "part": "fal_frame_1",
+        "x": 65,
+        "y": 8
+    },
+    {
+        "level": 18,
+        "name": "FAL",
+        "part": "fal_frame_2",
+        "x": 208,
+        "y": 44
+    },
+    {
+        "level": 18,
+        "name": "FAL",
+        "part": "fal_grip",
+        "x": 268,
+        "y": 43
+    },
+    {
+        "level": 18,
+        "name": "FAL",
+        "part": "fal_trigger",
+        "x": 190,
+        "y": 7
+    },
+    {
+        "level": 19,
+        "name": "FAMAS",
+        "part": "famas_addon",
+        "x": 170,
+        "y": 18
+    },
+    {
+        "level": 19,
+        "name": "FAMAS",
+        "part": "famas_barrel",
+        "x": 4,
+        "y": 28
+    },
+    {
+        "level": 19,
+        "name": "FAMAS",
+        "part": "famas_frame_1",
+        "x": 51,
+        "y": 2
+    },
+    {
+        "level": 19,
+        "name": "FAMAS",
+        "part": "famas_frame_2",
+        "x": 179,
+        "y": 48
+    },
+    {
+        "level": 19,
+        "name": "FAMAS",
+        "part": "famas_grip",
+        "x": 135,
+        "y": 45
+    },
+    {
+        "level": 19,
+        "name": "FAMAS",
+        "part": "famas_trigger",
+        "x": 55,
+        "y": 23
+    },
+    {
+        "level": 20,
+        "name": "M4",
+        "part": "grip_m4",
+        "x": 264,
+        "y": 68
+    },
+    {
+        "level": 20,
+        "name": "M4",
+        "part": "frame_m4_1",
+        "x": 197,
+        "y": 32
+    },
+    {
+        "level": 20,
+        "name": "M4",
+        "part": "frame_m4_2",
+        "x": 183,
+        "y": 75
+    },
+    {
+        "level": 20,
+        "name": "M4",
+        "part": "barrel_m4",
+        "x": 6,
+        "y": 16
+    },
+    {
+        "level": 20,
+        "name": "M4",
+        "part": "addon_m4_1",
+        "x": 297,
+        "y": 32
+    },
+    {
+        "level": 20,
+        "name": "M4",
+        "part": "addon_m4_2",
+        "x": 197,
+        "y": 10
+    },
+    {
+        "level": 21,
+        "part": "deagle_barrel",
+        "x": -23,
+        "y": -132
+    },
+    {
+        "level": 21,
+        "part": "frame_revolver38",
+        "x": -13,
+        "y": -115
+    },
+    {
+        "level": 21,
+        "part": "deagle_grip",
+        "x": 15,
+        "y": -102
+    },
+    {
+        "level": 22,
+        "part": "fal_addon",
+        "x": 123,
+        "y": -69
+    },
+    {
+        "level": 22,
+        "part": "arc300_barrel",
+        "x": -14,
+        "y": -89
+    },
+    {
+        "level": 22,
+        "part": "frame_ak47_2",
+        "x": -13,
+        "y": -21
+    },
+    {
+        "level": 22,
+        "part": "frame_tec9_1",
+        "x": 31,
+        "y": -71
+    },
+    {
+        "level": 22,
+        "part": "grip_m1911",
+        "x": 61,
+        "y": -46
+    },
+    {
+        "level": 23,
+        "part": "aug_frame_2",
+        "x": 166,
+        "y": -101
+    },
+    {
+        "level": 23,
+        "part": "famas_frame_1",
+        "x": 81,
+        "y": -119
+    },
+    {
+        "level": 23,
+        "part": "barrel_carbine",
+        "x": -26,
+        "y": -97
+    },
+    {
+        "level": 23,
+        "part": "fal_frame_1",
+        "x": 25,
+        "y": -98
+    },
+    {
+        "level": 23,
+        "part": "fnp90_grip",
+        "x": 126,
+        "y": -64
+    },
+    {
+        "level": 23,
+        "part": "aug_trigger",
+        "x": 65,
+        "y": -75
+    },
+    {
+        "level": 24,
+        "part": "fnp90_frame_1",
+        "x": -43,
+        "y": -163
+    },
+    {
+        "level": 24,
+        "part": "grip_tec9",
+        "x": -24,
+        "y": -102
+    },
+    {
+        "level": 24,
+        "part": "barrel_tec9",
+        "x": -18,
+        "y": -146
+    },
+    {
+        "level": 24,
+        "part": "arc300_barrel",
+        "x": -31,
+        "y": -129
+    },
+    {
+        "level": 24,
+        "part": "frame_shotgun_1",
+        "x": 104,
+        "y": -129
+    },
+    {
+        "level": 24,
+        "part": "grip_magnum",
+        "x": 152,
+        "y": -119
+    },
+    {
+        "level": 25,
+        "part": "grip_magnum",
+        "x": 79,
+        "y": -72
+    },
+    {
+        "level": 25,
+        "part": "famas_trigger",
+        "x": 8,
+        "y": -92
+    },
+    {
+        "level": 25,
+        "part": "barrel_glock",
+        "x": 22,
+        "y": -115
+    },
+    {
+        "level": 25,
+        "part": "grip_tec9",
+        "x": 26,
+        "y": -69
+    },
+    {
+        "level": 25,
+        "part": "arc300_barrel",
+        "x": -6,
+        "y": -100
+    },
+    {
+        "level": 26,
+        "part": "famas_frame_2",
+        "x": 83,
+        "y": -109
+    },
+    {
+        "level": 26,
+        "part": "fal_grip",
+        "x": 136,
+        "y": -120
+    },
+    {
+        "level": 26,
+        "part": "frame_tec9_1",
+        "x": 107,
+        "y": -137
+    },
+    {
+        "level": 26,
+        "part": "socom_frame",
+        "x": -77,
+        "y": -169
+    },
+    {
+        "level": 26,
+        "part": "arc300_barrel",
+        "x": -13,
+        "y": -150
+    },
+    {
+        "level": 26,
+        "part": "frame_carbine_2",
+        "x": 43,
+        "y": -163
+    },
+    {
+        "level": 27,
+        "part": "arc300_frame",
+        "x": 6,
+        "y": -145
+    },
+    {
+        "level": 27,
+        "part": "m249_barrel",
+        "x": -66,
+        "y": -188
+    },
+    {
+        "level": 27,
+        "part": "famas_addon",
+        "x": 75,
+        "y": -172
+    },
+    {
+        "level": 27,
+        "part": "mp5_trigger",
+        "x": 35,
+        "y": -168
+    },
+    {
+        "level": 27,
+        "part": "arc300_grip",
+        "x": 62,
+        "y": -144
+    },
+    {
+        "level": 28,
+        "part": "aug_frame_2",
+        "x": 18,
+        "y": -83
+    },
+    {
+        "level": 28,
+        "part": "barrel_ak47",
+        "x": -67,
+        "y": -123
+    },
+    {
+        "level": 28,
+        "part": "fal_frame_1",
+        "x": 43,
+        "y": -135
+    },
+    {
+        "level": 28,
+        "part": "fal_trigger",
+        "x": 47,
+        "y": -108
+    },
+    {
+        "level": 28,
+        "part": "aug_barrel",
+        "x": -40,
+        "y": -101
+    },
+    {
+        "level": 28,
+        "part": "mp5_addon",
+        "x": 144,
+        "y": -100
+    },
+    {
+        "level": 28,
+        "part": "m249_grip",
+        "x": 87,
+        "y": -75
+    },
+    {
+        "level": 29,
+        "part": "fal_frame_2",
+        "x": 82,
+        "y": -91
+    },
+    {
+        "level": 29,
+        "part": "grip_carbine",
+        "x": 203,
+        "y": -98
+    },
+    {
+        "level": 29,
+        "part": "mp5_barrel",
+        "x": -14,
+        "y": -173
+    },
+    {
+        "level": 29,
+        "part": "aug_barrel",
+        "x": -110,
+        "y": -148
+    },
+    {
+        "level": 29,
+        "part": "fal_barrel",
+        "x": -96,
+        "y": -137
+    },
+    {
+        "level": 29,
+        "part": "addon_mac10",
+        "x": 108,
+        "y": -162
+    },
+    {
+        "level": 29,
+        "part": "m249_frame",
+        "x": 67,
+        "y": -158
+    },
+    {
+        "level": 29,
+        "part": "fal_frame_1",
+        "x": -7,
+        "y": -142
+    },
+    {
+        "level": 29,
+        "part": "famas_barrel",
+        "x": -84,
+        "y": -126
+    },
+    {
+        "level": 29,
+        "part": "frame_carbine_1",
+        "x": 39,
+        "y": -115
+    },
+    {
+        "level": 30,
+        "part": "famas_addon",
+        "x": 168,
+        "y": -109
+    },
+    {
+        "level": 30,
+        "part": "m249_grip",
+        "x": 141,
+        "y": -75
+    },
+    {
+        "level": 30,
+        "part": "arc300_frame",
+        "x": -4,
+        "y": -67
+    },
+    {
+        "level": 30,
+        "part": "socom_addon",
+        "x": 6,
+        "y": -160
+    },
+    {
+        "level": 30,
+        "part": "g3_barrel",
+        "x": -17,
+        "y": -128
+    },
+    {
+        "level": 30,
+        "part": "barrel_tec9",
+        "x": -86,
+        "y": -107
+    },
+    {
+        "level": 30,
+        "part": "aug_frame_1",
+        "x": 73,
+        "y": -145
+    },
+    {
+        "level": 30,
+        "part": "m249_frame",
+        "x": 80,
+        "y": -127
+    },
+    {
+        "level": 30,
+        "part": "g3_trigger",
+        "x": 66,
+        "y": -104
+    },
+    {
+        "level": 31,
+        "part": "barrel_carbine",
+        "x": -160,
+        "y": -118
+    },
+    {
+        "level": 31,
+        "part": "frame_tec9_2",
+        "x": -80,
+        "y": -74
+    },
+    {
+        "level": 31,
+        "part": "frame_ak47_1",
+        "x": -44,
+        "y": -112
+    },
+    {
+        "level": 31,
+        "part": "grip_shotgun",
+        "x": 86,
+        "y": -82
+    },
+    {
+        "level": 32,
+        "part": "aug_frame_2",
+        "x": -17,
+        "y": -57
+    },
+    {
+        "level": 32,
+        "part": "g3_barrel",
+        "x": -132,
+        "y": -94
+    },
+    {
+        "level": 32,
+        "part": "deagle_barrel",
+        "x": -34,
+        "y": -109
+    },
+    {
+        "level": 32,
+        "part": "grip_magnum",
+        "x": 66,
+        "y": -65
+    },
+    {
+        "level": 32,
+        "part": "g3_trigger",
+        "x": -7,
+        "y": -87
+    },
+    {
+        "level": 33,
+        "part": "aug_addon",
+        "x": -114,
+        "y": -54
+    },
+    {
+        "level": 33,
+        "part": "grip_magnum",
+        "x": 84,
+        "y": -61
+    },
+    {
+        "level": 33,
+        "part": "barrel_carbine",
+        "x": -82,
+        "y": -83
+    },
+    {
+        "level": 33,
+        "part": "frame_shotgun_1",
+        "x": 37,
+        "y": -73
+    },
+    {
+        "level": 34,
+        "part": "famas_frame_2",
+        "x": -13,
+        "y": -63
+    },
+    {
+        "level": 34,
+        "part": "fnp90_barrel",
+        "x": -50,
+        "y": -115
+    },
+    {
+        "level": 34,
+        "part": "barrel_revolver38",
+        "x": -48,
+        "y": -138
+    },
+    {
+        "level": 34,
+        "part": "socom_frame",
+        "x": -18,
+        "y": -127
+    },
+    {
+        "level": 34,
+        "part": "grip_ak47",
+        "x": 32,
+        "y": -82
+    },
+    {
+        "level": 34,
+        "part": "frame_tec9_1",
+        "x": 10,
+        "y": -98
+    },
+    {
+        "level": 34,
+        "part": "aug_frame_1",
+        "x": 49,
+        "y": -119
+    },
+    {
+        "level": 35,
+        "part": "g3_frame",
+        "x": -63,
+        "y": -58
+    },
+    {
+        "level": 35,
+        "part": "arc300_frame",
+        "x": -42,
+        "y": -57
+    },
+    {
+        "level": 35,
+        "part": "addon_mac10",
+        "x": 25,
+        "y": -122
+    },
+    {
+        "level": 35,
+        "part": "barrel_tec9",
+        "x": -36,
+        "y": -132
+    },
+    {
+        "level": 35,
+        "part": "barrel_tec9",
+        "x": -36,
+        "y": -116
+    },
+    {
+        "level": 35,
+        "part": "barrel_tec9",
+        "x": -36,
+        "y": -99
+    },
+    {
+        "level": 35,
+        "part": "m249_grip",
+        "x": 26,
+        "y": -62
+    },
+    {
+        "level": 35,
+        "part": "socom_trigger",
+        "x": -11,
+        "y": -78
+    },
+    {
+        "level": 36,
+        "part": "frame_ak47_2",
+        "x": -3,
+        "y": -49
+    },
+    {
+        "level": 36,
+        "part": 144,
+        "x": -119,
+        "y": -88
+    },
+    {
+        "level": 36,
+        "part": "fal_barrel",
+        "x": -54,
+        "y": -104
+    },
+    {
+        "level": 36,
+        "part": "arc300_addon_1",
+        "x": 154,
+        "y": -89
+    },
+    {
+        "level": 36,
+        "part": 139,
+        "x": 115,
+        "y": -53
+    },
+    {
+        "level": 36,
+        "part": "frame_mac10_2",
+        "x": 45,
+        "y": -99
+    },
+    {
+        "level": 36,
+        "part": "fal_trigger",
+        "x": 36,
+        "y": -72
+    },
+    {
+        "level": 37,
+        "part": "famas_frame_2",
+        "x": -11,
+        "y": -47
+    },
+    {
+        "level": 37,
+        "part": "grip_ak47",
+        "x": 112,
+        "y": -46
+    },
+    {
+        "level": 37,
+        "part": 133,
+        "x": -253,
+        "y": -90
+    },
+    {
+        "level": 37,
+        "part": "famas_frame_1",
+        "x": -95,
+        "y": -105
+    },
+    {
+        "level": 37,
+        "part": 135,
+        "x": -55,
+        "y": -72
+    },
+    {
+        "level": 37,
+        "part": 136,
+        "x": 20,
+        "y": -95
+    },
+    {
+        "level": 37,
+        "part": "arc300_trigger",
+        "x": 80,
+        "y": -65
+    },
+    {
+        "level": 38,
+        "part": "deagle_grip",
+        "x": 88,
+        "y": -38
+    },
+    {
+        "level": 38,
+        "part": "deagle_trigger",
+        "x": 46,
+        "y": -52
+    },
+    {
+        "level": 38,
+        "part": "deagle_barrel",
+        "x": 45,
+        "y": -70
+    },
+    {
+        "level": 38,
+        "part": "deagle_barrel",
+        "x": 41,
+        "y": -147
+    },
+    {
+        "level": 38,
+        "part": "deagle_trigger",
+        "x": 42,
+        "y": -129
+    },
+    {
+        "level": 38,
+        "part": "deagle_grip",
+        "x": 83,
+        "y": -115
+    },
+    {
+        "level": 39,
+        "part": "addon_m4_1",
+        "x": 231,
+        "y": -27
+    },
+    {
+        "level": 39,
+        "part": "m249_barrel",
+        "x": 22,
+        "y": -53
+    },
+    {
+        "level": 39,
+        "part": "mp5_barrel",
+        "x": -6,
+        "y": -139
+    },
+    {
+        "level": 39,
+        "part": "g3_barrel",
+        "x": -152,
+        "y": -87
+    },
+    {
+        "level": 39,
+        "part": "grip_tec9",
+        "x": 157,
+        "y": -15
+    },
+    {
+        "level": 39,
+        "part": "arc300_trigger",
+        "x": 127,
+        "y": -38
+    },
+    {
+        "level": 39,
+        "part": "m249_frame",
+        "x": 107,
+        "y": -86
+    },
+    {
+        "level": 39,
+        "part": "socom_frame",
+        "x": 58,
+        "y": -129
+    },
+    {
+        "level": 39,
+        "part": "aug_frame_1",
+        "x": 58,
+        "y": -97
+    },
+    {
+        "level": 39,
+        "part": "fal_frame_1",
+        "x": -47,
+        "y": -82
+    },
+    {
+        "level": 40,
+        "part": "aug_frame_2",
+        "x": -11,
+        "y": -40
+    },
+    {
+        "level": 40,
+        "part": "frame_ak47_2",
+        "x": 69,
+        "y": -12
+    },
+    {
+        "level": 40,
+        "part": "m249_barrel",
+        "x": -184,
+        "y": -87
+    },
+    {
+        "level": 40,
+        "part": "g3_barrel",
+        "x": -90,
+        "y": -105
+    },
+    {
+        "level": 40,
+        "part": "addon_m4_1",
+        "x": 309,
+        "y": -52
+    },
+    {
+        "level": 40,
+        "part": "fnp90_grip",
+        "x": 191,
+        "y": -66
+    },
+    {
+        "level": 40,
+        "part": "aug_frame_1",
+        "x": 181,
+        "y": -94
+    },
+    {
+        "level": 40,
+        "part": "m249_frame",
+        "x": 87,
+        "y": -76
+    },
+    {
+        "level": 40,
+        "part": "famas_frame_1",
+        "x": 12,
+        "y": -97
+    },
+    {
+        "level": 40,
+        "part": "fal_frame_1",
+        "x": -57,
+        "y": -74
+    },
+    {
+        "level": 40,
+        "part": "socom_trigger",
+        "x": 19,
+        "y": -69
+    }
+]

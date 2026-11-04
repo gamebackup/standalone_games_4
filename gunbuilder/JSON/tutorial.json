@@ -1,0 +1,29 @@
+[
+    {
+        "id": "menu",
+        "text": "TAP TO OPEN",
+        "event": "menuOpened",
+        "pos": 66,
+        "step": 1
+    },
+    {
+        "id": "dragDrop",
+        "text": "DRAG & DROP\nTHE PARTS",
+        "event": "partBuilt",
+        "pos": 114,
+        "step": 2
+    },
+    {
+        "id": "dragWeapon",
+        "text": "DRAG THE GUN",
+        "event": "gunDrag",
+        "step": 3,
+        "wait": "shootMode"
+    },
+    {
+        "id": "shoot",
+        "text": "TAP TO SHOOT",
+        "event": "gunShoot",
+        "step": 4
+    }
+]
