@@ -114,7 +114,19 @@
             warning.style.display = 'block';
         }
 
+        // Render scale. Unity sizes the drawing buffer as CSS size x
+        // devicePixelRatio, so on a HiDPI display the game can be shading 4x the
+        // pixels it actually shows, and on this build that fill rate is what
+        // stutters on integrated graphics. Rendering a little below native is a
+        // cheap, reversible trade: append ?scale=1 for the sharpest image, or
+        // ?scale=0.7 / ?scale=0.5 if it is still choppy on a weak machine.
+        var requestedScale = parseFloat(new URLSearchParams(location.search).get('scale'));
+        var renderScale = isNaN(requestedScale)
+            ? Math.min(window.devicePixelRatio || 1, 1) * 0.85
+            : Math.min(Math.max(requestedScale, 0.25), 1);
+
         var config = {
+            devicePixelRatio: renderScale,
             dataUrl: 'Build/moto-racing-club.data?v=3',
             frameworkUrl: 'Build/moto-racing-club.framework.js?v=3',
             codeUrl: 'Build/moto-racing-club.wasm?v=3',

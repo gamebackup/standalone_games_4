@@ -106,14 +106,10 @@
 		document.addEventListener("webkitvisibilitychange", onVisibilityChanged, false);
 		document.addEventListener("msvisibilitychange", onVisibilityChanged, false);
 		
-		function OnRegisterSWError(e)
-		{
-			console.warn("Failed to register service worker: ", e);
-		};
-		
 		// Service worker removed in this offline copy: its cache would keep serving
 		// the old version of the game after any file is updated here.
-		window.C2_RegisterSW = function C2_RegisterSW() {};
+		// C2_RegisterSW is deliberately left undefined: c2runtime.js only fetches
+		// offlineClient.js when that global exists, so omitting it avoids a 404.
     </script>
 </body> 
 </html> 
